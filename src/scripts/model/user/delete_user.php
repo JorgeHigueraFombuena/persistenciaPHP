@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../bootstrap.php';
-
+require_once __DIR__ . '/../../../../bootstrap.php';
 
 if ($argc < 2) {
     echo "$argv[0] <id_user>" . PHP_EOL;

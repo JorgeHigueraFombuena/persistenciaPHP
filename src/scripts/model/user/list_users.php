@@ -1,6 +1,5 @@
 <?php   // src/scripts/list_users.php
-
-require_once __DIR__ . '/../../../bootstrap.php';
+require_once __DIR__ . '/../../../../bootstrap.php';
 
 $entityManager = getEntityManager();
 
