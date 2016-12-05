@@ -8,7 +8,7 @@ $userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
 $users = $userRepository->findAll();
 
 if (in_array('--json', $argv)) {
-    echo json_encode($users);
+    echo json_encode($users, JSON_PRETTY_PRINT);
 } else {
     $items = 0;
     echo PHP_EOL . sprintf("  %2d: %20s %30s %7s\n", 'Id', 'Username:', 'Email:', 'Enabled:');
