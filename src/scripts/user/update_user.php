@@ -14,13 +14,12 @@ $userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
 /** @var \MiW16\Results\Entity\User $user */
 $user = $userRepository->findOneById($argv[1]);
 if($user) {
-    echo json_encode($user, JSON_PRETTY_PRINT);
     $user->setUsername($argv[2]);
     $user->setEmail($argv[3]);
     $user->setPassword($argv[4]);
     $entityManager->persist($user);
     $entityManager->flush();
-    echo json_encode($user, JSON_PRETTY_PRINT);
+    echo 'Actualización correcta!';
 }
 else {
     echo 'Usuario no encontrado';
