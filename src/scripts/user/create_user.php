@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../../bootstrap.php';
 
 
 if ($argc < 3) {
@@ -8,8 +8,6 @@ if ($argc < 3) {
 }
 
 $entityManager = getEntityManager();
-
-$userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
 
 /** @var \MiW16\Results\Entity\User $user */
 $user = new \MiW16\Results\Entity\User();
