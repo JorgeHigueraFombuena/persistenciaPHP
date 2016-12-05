@@ -1,4 +1,4 @@
-<?php   // src/Entity/Result.php
+<?php // src/Entity/Result.php
 
 namespace MiW16\Results\Entity;
 
@@ -61,10 +61,10 @@ class Result implements \JsonSerializable
      */
     public function __construct(int $result, User $user, \DateTime $time)
     {
-        $this->id     = 0;
+        $this->id = 0;
         $this->result = $result;
-        $this->user   = $user;
-        $this->time   = $time;
+        $this->user = $user;
+        $this->time = $time;
     }
 
     /**
@@ -81,7 +81,12 @@ class Result implements \JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        // TODO
+        return [
+            'id' => $this->id,
+            'result' => $this->result,
+            'user' => $this->user,
+            'time' => $this->time
+        ];
     }
 
     /**
