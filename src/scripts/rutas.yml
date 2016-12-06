@@ -15,6 +15,13 @@ create_user:
     defaults:
         {_controller: UsersController, action: createUser}
 
+update_user:
+    path:     /update_user/{id_user}
+    defaults:
+        {_controller: UsersController, action: updateUser}
+    requirements:
+        id_user: '\d+'
+
 show_results:
     path:     /show_results/{id_user}
     defaults:

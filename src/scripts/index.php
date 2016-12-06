@@ -27,6 +27,8 @@ try {
     $parameters = $matcher->match($path_info);
     var_dump($parameters);
     var_dump($context);
+    $query = parse_url($context->getBaseUrl(), PHP_URL_QUERY);
+    parse_str($query, $params);
     $controller = $parameters['_controller'];
     $action = $parameters['action'];
     $controller = new $controller();
@@ -34,11 +36,10 @@ try {
         $controller->$action(intval($parameters['id_user']));
     } else if ($action === 'deleteResult') {
         $controller->$action(intval($parameters['id_result']));
+    } else if ($action === 'updateUser') {
+        $controller->$action(intval($parameters['id_user']), $params['username'] ?? null, $params['email'] ?? null, $params['password'] ?? null);
     } else if (strpos($context->getBaseUrl(), '&') !== false) {
-        $query = parse_url($context->getBaseUrl(), PHP_URL_QUERY);
-        parse_str($query, $params);
-        var_dump($params);
-        if(array_key_exists('email', $params)) {
+        if (array_key_exists('email', $params)) {
             $controller->$action($params['username'], $params['email'], $params['password']);
         } else {
             $controller->$action($params['iduser'], $params['result'], $params['date']);

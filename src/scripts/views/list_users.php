@@ -19,7 +19,6 @@ ob_start();
         echo '<td>' . $user->getUsername() . '</td>';
         echo '<td>' . $user->getEmail() . '</td>';
         echo '<td>' . $user->isEnabled() . '</td>';
-        echo '<td><a href="delete_user/' . $user->getId() . '" >Eliminar usuario</a>';
         echo '<td>';
         $found = false;
         /** @var \MiW16\Results\Entity\Result $result */
@@ -34,6 +33,8 @@ ob_start();
             echo '<a href="create_result/' . $user->getId() . '">Crear resultado</a>';
         }
         echo '</td>';
+        echo '<td><a href="delete_user/' . $user->getId() . '" >Eliminar usuario</a></td>';
+        echo '<td><a href="update_user/' . $user->getId() . '" >Actualizar usuario</a></td>';
         echo '</tr>';
         echo '<p><a href="/create_user">Crear usuario</a></p>';
         echo '<p><a href="/show_results">Mostrar todos los resultados</a></p>';

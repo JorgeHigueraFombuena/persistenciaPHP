@@ -1,22 +1,27 @@
 <?php
 require_once __DIR__ . '/../../../../bootstrap.php';
 
+function get_user($idUser){
+    $entityManager = getEntityManager();
 
-if ($argc < 2) {
-    echo "$argv[0] <id_user>" . PHP_EOL;
-    exit();
+    $userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
+
+    /** @var \MiW16\Results\Entity\User $user */
+    $user = $userRepository->findOneById($idUser);
+    return $user;
 }
 
-$entityManager = getEntityManager();
+if(php_sapi_name() === 'cli') {
+    if ($argc < 2) {
+        echo "$argv[0] <id_user>" . PHP_EOL;
+        exit();
+    }
 
-$userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
+    $user = get_user($argv[1]);
 
-/** @var \MiW16\Results\Entity\User $user */
-$user = $userRepository->findOneById($argv[1]);
-
-if($user) {
-    echo json_encode($user, JSON_PRETTY_PRINT);
-}
-else {
-    echo 'Usuario no encontrado';
+    if ($user) {
+        echo json_encode($user, JSON_PRETTY_PRINT);
+    } else {
+        echo 'Usuario no encontrado';
+    }
 }
