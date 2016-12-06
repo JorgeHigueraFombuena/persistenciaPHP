@@ -3,6 +3,8 @@ require_once __DIR__ . '/../../../bootstrap.php';
 
 require_once __DIR__ . '/../model/result/list_results.php';
 require_once __DIR__ . '/../model/result/create_result.php';
+require_once __DIR__ . '/../model/result/show_result.php';
+require_once __DIR__ . '/../model/result/update_result.php';
 require_once __DIR__ . '/../model/result/delete_result.php';
 
 
@@ -58,5 +60,30 @@ class ResultsController
             $message = 'ERROR! Ha ocurrido un error inesperado al intentar borrar el resultado';
         }
         require __DIR__ . '/../views/message.php';
+    }
+
+    public function updateResult($idResult, $idUser = null, $resultValue = null, $dateString = null)
+    {
+        $result = get_result($idResult);
+        $returnLink = '/';
+        if ($result) {
+            if ($idUser) {
+                $res = update_result($idResult, $idUser, $resultValue, $dateString);
+                if ($res) {
+                    $returnLink = '/show_results/' . $idUser;
+                    $message = 'Se ha actualizado correctamente';
+                } else {
+                    $returnLink = '/update_result/' . $idResult;
+                    $message = 'ERROR! Ha ocurrido un error inesperado al intentar actualizar el resultado';
+                }
+                require __DIR__ . '/../views/message.php';
+            } else {
+                $users = list_users();
+                require __DIR__ . '/../views/create_result.php';
+            }
+        } else {
+            $message = 'ERROR! El resultado no existe';
+            require __DIR__ . '/../views/message.php';
+        }
     }
 }

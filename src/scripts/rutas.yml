@@ -45,3 +45,10 @@ create_result:
     path:     /create_result
     defaults:
         {_controller: ResultsController, action: createResult}
+
+update_result:
+    path:     /update_result/{id_result}
+    defaults:
+        {_controller: ResultsController, action: updateResult}
+    requirements:
+        id_user: '\d+'

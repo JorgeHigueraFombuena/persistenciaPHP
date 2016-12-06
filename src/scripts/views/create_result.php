@@ -1,5 +1,15 @@
 <?php
 $title = 'Crear resultado';
+$idResult = null;
+$idUser = null;
+$resultValue = null;
+$date = null;
+if ($result) {
+    $idResult = $result->getId();
+    $idUser = $result->getUser()->getId();
+    $resultValue = $result->getResult();
+    $date = $result->getTime();
+}
 
 ob_start();
 ?>
@@ -8,12 +18,18 @@ ob_start();
             <?php
             /** @var \MiW16\Results\Entity\User $user */
             foreach ($users as $user) {
-                echo '<option value="' . $user->getId() . '">' . $user->getUsername() . '</option>';
-}
+                echo '<option value="' . $user->getId() . '"';
+                if ($idUser === $user->getId()) {
+                    echo 'selected="selected"';
+                }
+                echo '>' . $user->getUsername() . '</option>';
+            }
             ?>
         </select>
-        <input type="number" name="result" required>
-        <input type="date" name="date" placeholder="dd/MM/yyyy">
+        <input type="number" name="result" value="<?php if ($resultValue) echo $resultValue; ?>" required>
+        <input type="date" name="date" placeholder="1999-12-30"
+               value="<?php if ($date) echo $date->format('Y-m-d'); ?>" required>
+        <input type="hidden" name="idResult" value="<?php if ($idResult) echo $idResult; ?>">
         <input type="submit" name="enviar" value="Enviar">
     </form>
 <?php

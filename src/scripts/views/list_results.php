@@ -19,6 +19,7 @@ ob_start();
             echo '<td>' . $result->getResult() . '</td>';
             echo '<td>' . $result->getTime()->format('Y-m-d H:i:s') . '</td>';
             echo '<td><a href="/delete_result/' . $result->getId() . '" >Eliminar resultado</a>';
+            echo '<td><a href="/update_result/' . $result->getId() . '" >Actualizar resultado</a>';
             echo '</tr>';
             echo '<p><a href="/create_result">Crear resultado</a></p>';
             echo '<p><a href="/">Volver</a></p>';

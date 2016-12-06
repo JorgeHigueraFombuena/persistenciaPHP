@@ -38,6 +38,8 @@ try {
         $controller->$action(intval($parameters['id_result']));
     } else if ($action === 'updateUser') {
         $controller->$action(intval($parameters['id_user']), $params['username'] ?? null, $params['email'] ?? null, $params['password'] ?? null);
+    } else if ($action === 'updateResult') {
+        $controller->$action(intval($parameters['id_result']), $params['iduser'] ?? null, $params['result'] ?? null, $params['date'] ?? null);
     } else if (strpos($context->getBaseUrl(), '&') !== false) {
         if (array_key_exists('email', $params)) {
             $controller->$action($params['username'], $params['email'], $params['password']);
