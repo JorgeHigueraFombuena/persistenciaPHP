@@ -1,0 +1,23 @@
+init:
+    path:     /
+    defaults:
+        {_controller: UsersController, action: init}
+
+delete_user:
+    path:     /delete_user/{id_user}
+    defaults:
+        {_controller: UsersController, action: deleteUser}
+    requirements:
+        id_user: '\d+'
+
+create_user:
+    path:     /create_user
+    defaults:
+        {_controller: UsersController, action: createUser}
+
+show_results:
+    path:     /show_results/{id_user}
+    defaults:
+        {_controller: ResultsController, action: init}
+    requirements:
+        id_user: '\d+'
