@@ -35,7 +35,8 @@ ob_start();
         }
         echo '</td>';
         echo '</tr>';
-        echo '<a href="/create_user_layout">Crear usuario</a>';
+        echo '<p><a href="/create_user">Crear usuario</a></p>';
+        echo '<p><a href="/show_results">Mostrar todos los resultados</a></p>';
     }
     ?>
 </table>

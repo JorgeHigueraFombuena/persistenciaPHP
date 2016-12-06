@@ -25,21 +25,27 @@ $path_info = filter_input(INPUT_SERVER, 'PATH_INFO') ?? '/';
 
 try {
     $parameters = $matcher->match($path_info);
-    echo var_dump($parameters);
-    echo var_dump($context);
+    var_dump($parameters);
+    var_dump($context);
     $controller = $parameters['_controller'];
     $action = $parameters['action'];
     $controller = new $controller();
     if ($action === 'deleteUser') {
         $controller->$action(intval($parameters['id_user']));
-    }
-    else if(strpos($context->getBaseUrl(), '&') !== false){
+    } else if ($action === 'deleteResult') {
+        $controller->$action(intval($parameters['id_result']));
+    } else if (strpos($context->getBaseUrl(), '&') !== false) {
         $query = parse_url($context->getBaseUrl(), PHP_URL_QUERY);
         parse_str($query, $params);
         var_dump($params);
-        $controller->$action($params['username'], $params['email'], $params['password']);
-    }
-    else {
+        if(array_key_exists('email', $params)) {
+            $controller->$action($params['username'], $params['email'], $params['password']);
+        } else {
+            $controller->$action($params['iduser'], $params['result'], $params['date']);
+        }
+    } else if ($action === 'initResultListOfUser') {
+        $controller->$action(intval($parameters['id_user']));
+    } else {
         $controller->$action();
     }
 } catch (ResourceNotFoundException $e) {

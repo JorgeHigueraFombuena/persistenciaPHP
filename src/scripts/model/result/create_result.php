@@ -1,30 +1,45 @@
 <?php
 require_once __DIR__ . '/../../../../bootstrap.php';
 
+function create_result($idUser, $resultValue, $dateString)
+{
+    try {
+        $entityManager = getEntityManager();
 
-if ($argc < 4) {
-    echo "$argv[0] <id_user> <result> <date>" . PHP_EOL;
-    exit();
+        $userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
+
+        /** @var \MiW16\Results\Entity\User $user */
+        $user = $userRepository->findOneById($idUser);
+        if ($user) {
+            /** @var \MiW16\Results\Entity\Result $result */
+            $date = DateTime::createFromFormat('Y-m-d', $dateString);
+            $result = new \MiW16\Results\Entity\Result($resultValue, $user, $date);
+
+            $entityManager->persist($result);
+            $entityManager->flush();
+            return true;
+        } else {
+            return false;
+        }
+    } catch (Exception $exception) {
+        return false;
+    }
 }
-if(!DateTime::createFromFormat('d/m/Y', $argv[3])){
-    echo "Introduce un formato de fecha válido. Ejemplo: 01/02/1999";
-    exit();
-}
 
-$entityManager = getEntityManager();
+if (php_sapi_name() === 'cli') {
 
-$userRepository = $entityManager->getRepository('MiW16\Results\Entity\User');
+    if ($argc < 4) {
+        echo "$argv[0] <id_user> <result> <date>" . PHP_EOL;
+        exit();
+    }
+    if (!DateTime::createFromFormat('Y-m-d', $argv[3])) {
+        echo "Introduce un formato de fecha válido. Ejemplo: 1999-12-30";
+        exit();
+    }
 
-/** @var \MiW16\Results\Entity\User $user */
-$user = $userRepository->findOneById($argv[1]);
-if($user) {
-    /** @var \MiW16\Results\Entity\Result $result */
-    $date = DateTime::createFromFormat('d/m/Y', $argv[3]);
-    $result = new \MiW16\Results\Entity\Result(intval($argv[2]), $user, $date);
+    $res = create_result($argv[1], intval($argv[2]), $argv[3]);
+    if (!$res) {
+        echo 'Ha ocurrido un error al intentar crear el resultado';
+    }
 
-    $entityManager->persist($result);
-    $entityManager->flush();
-}
-else {
-    echo 'Usuario no encontrado';
 }

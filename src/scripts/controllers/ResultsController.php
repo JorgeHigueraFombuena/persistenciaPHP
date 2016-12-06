@@ -1,0 +1,62 @@
+<?php
+require_once __DIR__ . '/../../../bootstrap.php';
+
+require_once __DIR__ . '/../model/result/list_results.php';
+require_once __DIR__ . '/../model/result/create_result.php';
+require_once __DIR__ . '/../model/result/delete_result.php';
+
+
+class ResultsController
+{
+    public function initResultList($idUser = null)
+    {
+        $results = get_all_results();
+        $resultsOfUser = array();
+        if ($idUser !== null) {
+            /** @var \MiW16\Results\Entity\Result $result */
+            foreach ($results as $result) {
+                if ($result->getUser()->getId() === $idUser) {
+                    array_push($resultsOfUser, $result);
+                }
+            }
+        } else {
+            $resultsOfUser = $results;
+        }
+        require __DIR__ . '/../views/list_results.php';
+    }
+
+    public function initResultListOfUser($idUser)
+    {
+        $this->initResultList($idUser);
+    }
+
+    public function createResult($idUser = null, $resultValue = null, $dateString = null)
+    {
+        if ($idUser !== null) {
+            $res = create_result($idUser, $resultValue, $dateString);
+
+            $returnLink = '/show_results/' . $idUser;
+            if ($res) {
+                $message = 'Se ha creado correctamente';
+            } else {
+                $message = 'ERROR! Ha ocurrido un error inesperado al intentar crear el resultado';
+            }
+            require __DIR__ . '/../views/message.php';
+        } else {
+            $users = list_users();
+            require __DIR__ . '/../views/create_result.php';
+        }
+    }
+
+    public function deleteResult($idResult)
+    {
+        $res = delete_result($idResult);
+        $returnLink = '/show_results';
+        if ($res) {
+            $message = 'Se ha borrado correctamente';
+        } else {
+            $message = 'ERROR! Ha ocurrido un error inesperado al intentar borrar el resultado';
+        }
+        require __DIR__ . '/../views/message.php';
+    }
+}

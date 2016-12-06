@@ -18,6 +18,23 @@ create_user:
 show_results:
     path:     /show_results/{id_user}
     defaults:
-        {_controller: ResultsController, action: init}
+        {_controller: ResultsController, action: initResultListOfUser}
     requirements:
         id_user: '\d+'
+
+show_all_results:
+    path:     /show_results
+    defaults:
+        {_controller: ResultsController, action: initResultList}
+
+delete_result:
+    path:     /delete_result/{id_result}
+    defaults:
+        {_controller: ResultsController, action: deleteResult}
+    requirements:
+        id_user: '\d+'
+
+create_result:
+    path:     /create_result
+    defaults:
+        {_controller: ResultsController, action: createResult}

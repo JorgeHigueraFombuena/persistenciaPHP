@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../../../bootstrap.php';
 
-require __DIR__ . '/../model/user/list_users.php';
-require __DIR__ . '/../model/user/delete_user.php';
-require __DIR__ . '/../model/user/create_user.php';
-require __DIR__ . '/../model/result/list_results.php';
+require_once __DIR__ . '/../model/user/list_users.php';
+require_once __DIR__ . '/../model/user/delete_user.php';
+require_once __DIR__ . '/../model/user/create_user.php';
+require_once __DIR__ . '/../model/result/list_results.php';
 
 class UsersController
 {
@@ -46,7 +46,6 @@ class UsersController
         $returnLink = '/';
         if (count($resultsOfUser) == 0) {
             $res = delete_user($idUser);
-            echo var_dump($res);
             $message = '';
             if ($res) {
                 $message = 'Se ha borrado el usuario correctamente';
