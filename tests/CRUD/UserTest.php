@@ -6,15 +6,12 @@ use MiW16\Results\Entity\User;
 use PHPUnit_Framework_Error_Notice;
 use PHPUnit_Framework_Error_Warning;
 
-require_once __DIR__ . '/../../src/scripts/model/user/create_user.php';
+require_once __DIR__ . '/../../src/scripts/web/model/user_functions.php';
 
-/**
- * Class UserTest
- * @package MiW16\Results\Tests\Entity
- * @group users
- */
 class UserTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var  User */
+    private $user;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,23 +24,55 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         # notice, strict:
         PHPUnit_Framework_Error_Notice::$enabled = false;
+        create_user('test', 'test@test.es', 'test');
+        $users = list_users();
+        /** @var User $user */
+        foreach ($users as $user) {
+            if ($user->getUsername() === 'test'){
+                $this->user = $user;
+                break;
+            }
+        }
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        delete_user($this->user->getId());
+    }
+
 
     public function testCreateUser()
     {
         self::assertEquals(true, create_user('prueba', 'prueba@prueba.es', 'prueba'));
+        $users = list_users();
+        /** @var User $user */
+        foreach ($users as $user) {
+            if ($user->getUsername() === 'prueba'){
+                delete_user($user->getId());
+                break;
+            }
+        }
     }
 
-    /**
-     * @covers \MiW16\Results\Entity\User::setUsername()
-     * @covers \MiW16\Results\Entity\User::getUsername()
-     */
-    public function testGetSetUsername()
+
+    public function testGetUser()
     {
-        static::assertEmpty($this->user->getUsername());
-        $username = 'UsEr TESt NaMe #' . rand(0, 10000);
-        $this->user->setUsername($username);
-        static::assertEquals($username, $this->user->getUsername());
+        static::assertEquals($this->user->getUsername(), get_user($this->user->getId())->getUsername());
+    }
+
+    public function testDeleteUser(){
+        static::assertEquals(true, delete_user($this->user->getId()));
+    }
+
+    public function testListUser(){
+        static::assertEquals(true, count(list_users()) > 0);
+    }
+
+    public function testUpdateUser(){
+        static::assertEquals(true, update_user($this->user->getId(),'test2','test2@test2.es','test2'));
+        static::assertEquals(true, get_user($this->user->getId())->getUsername() === 'test2');
     }
 }
 
