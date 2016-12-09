@@ -46,6 +46,12 @@ create_result:
     defaults:
         {_controller: ResultsController, action: createResult}
 
+create_result_for_user:
+    path:     /create_result/{id_user}
+    defaults:
+        {_controller: ResultsController, action: createResult}
+    requirements:
+        id_user: '\d+'
 update_result:
     path:     /update_result/{id_result}
     defaults:

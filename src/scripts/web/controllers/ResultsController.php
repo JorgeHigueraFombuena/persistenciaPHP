@@ -31,15 +31,20 @@ class ResultsController
     public function createResult($idUser = null, $resultValue = null, $dateString = null)
     {
         if ($idUser !== null) {
-            $res = create_result($idUser, $resultValue, $dateString);
+            if($resultValue !== null) {
+                $res = create_result($idUser, $resultValue, $dateString);
 
-            $returnLink = '/show_results/' . $idUser;
-            if ($res) {
-                $message = 'Se ha creado correctamente';
+                $returnLink = '/show_results/' . $idUser;
+                if ($res) {
+                    $message = 'Se ha creado correctamente';
+                } else {
+                    $message = 'ERROR! Ha ocurrido un error inesperado al intentar crear el resultado';
+                }
+                require __DIR__ . '/../views/message.php';
             } else {
-                $message = 'ERROR! Ha ocurrido un error inesperado al intentar crear el resultado';
+                $user = get_user($idUser);
+                require __DIR__ . '/../views/create_result.php';
             }
-            require __DIR__ . '/../views/message.php';
         } else {
             $users = list_users();
             require __DIR__ . '/../views/create_result.php';

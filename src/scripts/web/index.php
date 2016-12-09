@@ -46,7 +46,7 @@ try {
         } else {
             $controller->$action($params['iduser'], $params['result'], $params['date']);
         }
-    } else if ($action === 'initResultListOfUser') {
+    } else if ($action === 'initResultListOfUser' || ($action === 'createResult' && isset($parameters['id_user']))) {
         $controller->$action(intval($parameters['id_user']));
     } else {
         $controller->$action();
