@@ -1,11 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../bootstrap.php';
 
-require_once __DIR__ . '/../model/user/list_users.php';
-require_once __DIR__ . '/../model/user/delete_user.php';
-require_once __DIR__ . '/../model/user/create_user.php';
-require_once __DIR__ . '/../model/user/show_user.php';
-require_once __DIR__ . '/../model/user/update_user.php';
+require_once __DIR__ . '/../model/user_functions.php';
 require_once __DIR__ . '/../model/result/list_results.php';
 
 class UsersController
