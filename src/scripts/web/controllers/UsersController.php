@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../../bootstrap.php';
+require_once __DIR__ . '/../../../../bootstrap.php';
 
 require_once __DIR__ . '/../model/user_functions.php';
-require_once __DIR__ . '/../model/result/list_results.php';
+require_once __DIR__ . '/../model/result_functions.php';
 
 class UsersController
 {

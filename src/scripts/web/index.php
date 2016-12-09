@@ -1,5 +1,5 @@
 <?php // demoRouting/src/index.php
-require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../../../bootstrap.php';
 foreach (glob("controllers/*.php") as $filename) {
     include $filename;
 }

@@ -1,11 +1,7 @@
 <?php
-require_once __DIR__ . '/../../../bootstrap.php';
+require_once __DIR__ . '/../../../../bootstrap.php';
 
-require_once __DIR__ . '/../model/result/list_results.php';
-require_once __DIR__ . '/../model/result/create_result.php';
-require_once __DIR__ . '/../model/result/show_result.php';
-require_once __DIR__ . '/../model/result/update_result.php';
-require_once __DIR__ . '/../model/result/delete_result.php';
+require_once __DIR__ . '/../model/result_functions.php';
 
 
 class ResultsController
